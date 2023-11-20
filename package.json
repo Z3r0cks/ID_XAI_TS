@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "@tensorflow/tfjs": "^4.13.0",
+    "@types/three": "^0.158.2",
+    "three": "^0.158.0",
+    "type": "module"
+  }
+}

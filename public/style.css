@@ -1,0 +1,35 @@
+html {
+   background-color: black;
+}
+
+body {
+   margin: 0;
+   padding: 0;
+}
+
+.cam,
+.input {
+   color: white;
+   position: absolute;
+   z-index: 2;
+}
+
+.cam {
+   top: 45px;
+}
+
+.input {
+   top: 10px;
+}
+
+body {
+   margin: 0;
+   padding: 0;
+}
+
+#hiddelLayerWrapper {
+   position: absolute;
+   top: 70px;
+   display: flex;
+   flex-direction: column;
+}
