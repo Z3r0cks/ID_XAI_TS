@@ -1,0 +1,1 @@
+{"version":3,"file":"Layer.js","sourceRoot":"","sources":["../../../src/classes/Layer.ts"],"names":[],"mappings":"AAGA,MAAM,OAAO,KAAK;IAIf,YAAY,OAAiB,EAAE,SAAoB;QAChD,IAAI,CAAC,QAAQ,GAAG,OAAO,CAAC;QACxB,IAAI,CAAC,UAAU,GAAG,SAAS,CAAC;IAC/B,CAAC;IAED,IAAW,OAAO;QACf,OAAO,IAAI,CAAC,QAAQ,CAAC;IACxB,CAAC;CACH"}

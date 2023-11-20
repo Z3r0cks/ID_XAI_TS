@@ -1,5 +1,5 @@
-export const LayerType = {
-   INPUT: 'input',
-   HIDDEN: 'hidden',
-   OUTPUT: 'output'
+export enum LayerType {
+   Input = "input",
+   Hidden = "hidden",
+   Output = "output"
 }

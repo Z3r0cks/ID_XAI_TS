@@ -10,3 +10,4 @@ export class Neuron {
         return this._bias;
     }
 }
+//# sourceMappingURL=Neuron.js.map

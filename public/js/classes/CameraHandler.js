@@ -21,3 +21,4 @@ export class CameraHandler {
         this._camera.position.x = _vertTrans;
     }
 }
+//# sourceMappingURL=CameraHandler.js.map

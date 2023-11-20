@@ -6,3 +6,4 @@ export class NeuralNetwork {
         return this._layers;
     }
 }
+//# sourceMappingURL=NeuralNetwork.js.map

@@ -7,3 +7,4 @@ export class Layer {
         return this._neurons;
     }
 }
+//# sourceMappingURL=Layer.js.map

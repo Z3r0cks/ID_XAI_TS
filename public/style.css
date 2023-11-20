@@ -9,7 +9,7 @@ body {
 
 .cam,
 .input {
-   color: white;
+   color: #e7e7e7ff;
    position: absolute;
    z-index: 2;
 }
@@ -27,7 +27,7 @@ body {
    padding: 0;
 }
 
-#hiddelLayerWrapper {
+#hiddenLayerWrapper {
    position: absolute;
    top: 70px;
    display: flex;
