@@ -37,7 +37,6 @@ export class InputHandler {
    handleInputEvent = (event: Event): void => {
       const target = event.target as HTMLInputElement;
       if (target && target.classList.contains('inputHidden')) {
-         console.log(target.value);
          //TODO: generateVisualNN(inputInput.value, getAllHiddenLayer(), outputInput.value);
       }
    }

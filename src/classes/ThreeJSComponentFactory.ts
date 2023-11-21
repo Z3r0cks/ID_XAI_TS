@@ -26,7 +26,6 @@ export class ThreeJSComponentFactory {
       const circle = new THREE.Mesh(circleGeometry, material);
       circle.position.y = pos * sphereDistance * sphereDistance / 2;
       circle.position.x = pos * 3;
-      console.log(circle.position.y);
       this._scene.add(circle);
    }
 

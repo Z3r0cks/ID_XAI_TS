@@ -16,8 +16,6 @@ export class CameraHandler {
     adjustPosition(_neuralNodes, _vertTrans, _sphereDistance) {
         const cameraZoom = Math.max(_neuralNodes[0], this.findLongestHiddenLayer(_neuralNodes[1]), _neuralNodes[2], _neuralNodes[1].length) * _sphereDistance / 4;
         this._camera.position.z = cameraZoom < 1 ? 6 : 6 * cameraZoom;
-        console.log("Cam ZoomFaktor: " + cameraZoom);
-        console.log("Cam Pos: " + this._camera.position.z);
         this._camera.position.x = _vertTrans;
     }
 }
