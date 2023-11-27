@@ -6,9 +6,6 @@ export class NeuralNetwork {
         this._layers = [];
         this._tfModel = tfNeuralNetwork;
     }
-    // public get layers(): Layer[] {
-    //    // return this._layers;
-    // }
     get tfNeuralNetwork() {
         return this._tfModel;
     }
@@ -19,12 +16,17 @@ export class NeuralNetwork {
     }
     generateLayers() {
         const totalLayers = this._tfModel.layers.length;
+        // console.log(this._tfModel.layers[4].getWeights());
         this._tfModel.layers.forEach((tfLayer, index) => {
             const weights = tfLayer.getWeights();
             const weightValues = weights[0].arraySync();
             const biasValues = weights[1].arraySync();
+            // console.log("weightValues", weightValues);
+            // console.log("biasValues", biasValues);
+            // console.log("----------------------------");
             const neurons = weightValues.map((neuronWeights, i) => {
-                return new Neuron(neuronWeights, biasValues[i]);
+                const biasValue = i < biasValues.length ? biasValues[i] : 0; // Standardwert verwenden, falls kein Bias-Wert vorhanden
+                return new Neuron(neuronWeights, biasValue);
             });
             let layerType;
             if (index === 0) {

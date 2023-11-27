@@ -6,11 +6,9 @@ const sphereDistance = 1.5;
 function main() {
     new InputHandler();
     const threeJSScene = new ThreeJSComponentFactory();
-    const tFModel = new TfModel(3, [[3], [3], [3], [3]], 3);
-    const model = tFModel.createModel();
-    const NN = new NeuralNetwork(model);
+    const tFModel = new TfModel(4, [[1], [2], [8], [4]], 4);
+    const NN = new NeuralNetwork(tFModel.createModel());
     NN.generateLayers();
-    console.log(NN);
     threeJSScene.createVisualLayer(3, sphereDistance);
     threeJSScene.render();
 }

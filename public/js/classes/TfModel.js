@@ -23,7 +23,7 @@ export class TfModel {
         this._hiddenLayer.forEach(e => {
             model.add(tf.layers.dense({ units: e[0] }));
         });
-        model.add(tf.layers.dense({ units: this._outputLayerUnits }));
+        model.add(tf.layers.dense({ units: this._outputLayerUnits, activation: 'relu' }));
         return model;
     }
     addDenseLayers(model) {
