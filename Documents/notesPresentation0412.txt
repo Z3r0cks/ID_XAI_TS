@@ -1,0 +1,9 @@
+Plan zwischenpräsi 04.12
+
+1. Personas
+2. Szenario + Figma
+3. Warum WebGL und Typescript
+4. Tests eigene NN-Lib aufbauen
+5. Umstieg aktuelle variante + Klassen-UML
+
+6. Pläne
