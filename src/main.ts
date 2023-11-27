@@ -1,22 +1,19 @@
 import { NeuralNetwork } from "./classes/NeuralNetwork";
 import { Layer } from "./classes/Layer";
-import { LayerType } from "./classes/LayerType";
+import { LayerType } from "./enums/LayerType";
 import { Neuron } from "./classes/Neuron";
 import { InputHandler } from "./classes/InputHandler";
 import { ThreeJSComponentFactory } from "./classes/ThreeJSComponentFactory";
 import * as tf from '@tensorflow/tfjs';
+import { TfModel } from "./classes/TfModel";
 
 const sphereDistance = 1.5;
 
 function main() {
    new InputHandler();
    const threeJSScene: ThreeJSComponentFactory = new ThreeJSComponentFactory();
-   const model: tf.Sequential = tf.sequential();
-   model.add(tf.layers.dense({ units: 3, inputShape: [1] }));
-   model.add(tf.layers.dense({ units: 3 }));
-   model.add(tf.layers.dense({ units: 3 }));
-   model.add(tf.layers.dense({ units: 3 }));
-   model.add(tf.layers.dense({ units: 3 }));
+   const tFModel: TfModel = new TfModel(3, [[3], [3], [3], [3]], 3);
+   const model = tFModel.createModel()
    const NN = new NeuralNetwork(model)
 
    NN.generateLayers()

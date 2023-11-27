@@ -1,18 +1,22 @@
 import { Neuron } from './Neuron';
-import { LayerType } from './LayerType';
+import { LayerType } from '../enums/LayerType';
 
 /**
  * Class representing a layer of neurons.
+ * @since 1.0.0
+ * @see Neuron
  */
 export class Layer {
-   /**
-     * Create a new Layer.
-     * @param _neurons neurons of the layer.
-     * @param _layerType type of the layer (input, hidden and output).
-     */
    private _neurons: Neuron[];
    private _layerType: LayerType
 
+   /**
+    * Create a new Layer.
+    * @param {Neuron[]} neurons - neurons of the layer.
+    * @param {LayerType} layerType - type of the layer (input, hidden and output).
+    * @example
+    * const layer = new Layer([new Neuron(), new Neuron()], LayerType.Input);
+    */
    constructor(neurons: Neuron[], layerType: LayerType) {
       this._neurons = neurons;
       this._layerType = layerType;

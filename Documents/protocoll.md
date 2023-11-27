@@ -43,3 +43,11 @@
 - Including layers so that the raycaster ignores the connections
 - created protocol and created protocols for weeks aferwards
 - added CameraController (fixed logic from P)
+- ## KW 47 (20.11 - 26.11)
+- ### P
+- Creating new repository for project which incudes typescript and better file structure
+- Including Classes, for better readability
+- Working on interaction with TensorFlowJS
+- Adding first grafical elements with the new repository and threeJS
+- ### L
+- Including interactionLib for interaction with threeJS

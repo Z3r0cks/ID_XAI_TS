@@ -1,6 +1,6 @@
 import { Layer } from './Layer';
 import { Neuron } from './Neuron';
-import { LayerType } from './LayerType';
+import { LayerType } from '../enums/LayerType';
 export class NeuralNetwork {
     constructor(tfNeuralNetwork) {
         this._layers = [];

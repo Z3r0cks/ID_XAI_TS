@@ -1,7 +1,7 @@
 import { Layer } from './Layer';
 import * as tf from '@tensorflow/tfjs';
 import { Neuron } from './Neuron';
-import { LayerType } from './LayerType';
+import { LayerType } from '../enums/LayerType';
 
 export class NeuralNetwork {
    private _tfModel: tf.Sequential;
