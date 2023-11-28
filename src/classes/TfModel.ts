@@ -35,8 +35,4 @@ export class TfModel {
 
       return model;
    }
-
-   addDenseLayers(model: tf.Sequential) {
-
-   }
 }

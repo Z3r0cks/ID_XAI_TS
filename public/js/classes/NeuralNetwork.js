@@ -17,29 +17,28 @@ export class NeuralNetwork {
     generateLayers() {
         const totalLayers = this._tfModel.layers.length;
         // console.log(this._tfModel.layers[4].getWeights());
+        // console.log("weightValues", weightValues);
+        // console.log("biasValues", biasValues);
+        // console.log("----------------------------");
         this._tfModel.layers.forEach((tfLayer, index) => {
             const weights = tfLayer.getWeights();
-            const weightValues = weights[0].arraySync();
-            const biasValues = weights[1].arraySync();
-            // console.log("weightValues", weightValues);
-            // console.log("biasValues", biasValues);
-            // console.log("----------------------------");
-            const neurons = weightValues.map((neuronWeights, i) => {
-                const biasValue = i < biasValues.length ? biasValues[i] : 0; // Standardwert verwenden, falls kein Bias-Wert vorhanden
-                return new Neuron(neuronWeights, biasValue);
-            });
-            let layerType;
-            if (index === 0) {
-                layerType = LayerType.Input;
+            if (weights.length > 0) {
+                const neurons = [];
+                const weightMatrix = weights[0].arraySync(); // Matrix der Gewichte
+                const biasValues = weights.length > 1 ? weights[1].arraySync() : []; // Bias-Werte, oder leeres Array, wenn keine vorhanden
+                // Die Anzahl der Neuronen im aktuellen Layer entspricht der Länge des Bias-Vektors
+                const numberOfNeurons = biasValues.length;
+                // Erstellung der Neuronen für den aktuellen Layer
+                for (let i = 0; i < numberOfNeurons; i++) {
+                    const neuronWeights = weightMatrix.map(row => row[i]);
+                    const biasValue = biasValues[i] || 0; // Falls kein Bias vorhanden, wird 0 verwendet
+                    neurons.push(new Neuron(neuronWeights, biasValue));
+                }
+                // Erstellung und Hinzufügen des Layers
+                const layerType = index === 0 ? LayerType.Input : (index === this._tfModel.layers.length - 1 ? LayerType.Output : LayerType.Hidden);
+                const layer = new Layer(neurons, layerType);
+                this._layers.push(layer);
             }
-            else if (index === totalLayers - 1) {
-                layerType = LayerType.Output;
-            }
-            else {
-                layerType = LayerType.Hidden;
-            }
-            const layer = new Layer(neurons, layerType);
-            this._layers.push(layer);
         });
     }
 }

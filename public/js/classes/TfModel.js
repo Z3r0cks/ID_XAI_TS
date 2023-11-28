@@ -26,7 +26,5 @@ export class TfModel {
         model.add(tf.layers.dense({ units: this._outputLayerUnits, activation: 'relu' }));
         return model;
     }
-    addDenseLayers(model) {
-    }
 }
 //# sourceMappingURL=TfModel.js.map
