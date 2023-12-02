@@ -15,6 +15,14 @@ export class NeuralNetwork {
       return this._tfModel;
    }
 
+   public get layers(): Layer[] {
+      return this._layers;
+   }
+
+   public set layers(layers: Layer[]) {
+      this._layers = layers;
+   }
+
    getNeuronCounts(): number[] {
       return this._tfModel.layers.map(layer => {
          return layer.getConfig().units as number;

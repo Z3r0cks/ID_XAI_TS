@@ -1,4 +1,3 @@
-"use strict";
 // const model: tf.Sequential = tf.sequential();
 // model.add(tf.layers.dense({ units: 3, inputShape: [1] }));
 // model.add(tf.layers.dense({ units: 2 }));
