@@ -3,5 +3,6 @@ export var LayerType;
     LayerType["Input"] = "input";
     LayerType["Hidden"] = "hidden";
     LayerType["Output"] = "output";
+    LayerType["Default"] = "default";
 })(LayerType || (LayerType = {}));
 //# sourceMappingURL=LayerType.js.map

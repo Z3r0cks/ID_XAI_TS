@@ -1,3 +1,5 @@
+import { Neuron } from './Neuron';
+import { LayerType } from '../enums/LayerType';
 /**
  * Class representing a layer of neurons.
  * @since 1.0.0
@@ -11,7 +13,7 @@ export class Layer {
      * @example
      * const layer = new Layer([new Neuron(), new Neuron()], LayerType.Input);
      */
-    constructor(neurons, layerType) {
+    constructor({ neurons = [], layerType = LayerType.Default } = {}) {
         this._neurons = neurons;
         this._layerType = layerType;
     }
@@ -20,6 +22,16 @@ export class Layer {
     }
     get layerType() {
         return this._layerType;
+    }
+    set layerType(layerType) {
+        this._layerType = layerType;
+    }
+    setNeuronsFromWeights(weightMatrix, biasValues) {
+        this._neurons = weightMatrix[0].map((_, colIndex) => {
+            const weights = weightMatrix.map(row => row[colIndex]);
+            const bias = biasValues.length > colIndex ? biasValues[colIndex] : 0;
+            return new Neuron(weights, bias);
+        });
     }
 }
 //# sourceMappingURL=Layer.js.map

@@ -17,9 +17,10 @@ export class Layer {
     * @example
     * const layer = new Layer([new Neuron(), new Neuron()], LayerType.Input);
     */
-   constructor(neurons: Neuron[], layerType: LayerType) {
+   constructor({ neurons = [], layerType = LayerType.Default }: { neurons?: Neuron[], layerType?: LayerType } = {}) {
       this._neurons = neurons;
       this._layerType = layerType;
+
    }
 
    public get neurons(): Neuron[] {
@@ -28,5 +29,17 @@ export class Layer {
 
    public get layerType(): LayerType {
       return this._layerType;
+   }
+
+   public set layerType(layerType: LayerType) {
+      this._layerType = layerType;
+   }
+
+   setNeuronsFromWeights(weightMatrix: number[][], biasValues: number[]): void {
+      this._neurons = weightMatrix[0].map((_, colIndex) => {
+         const weights = weightMatrix.map(row => row[colIndex]);
+         const bias = biasValues.length > colIndex ? biasValues[colIndex] : 0;
+         return new Neuron(weights, bias);
+      });
    }
 }

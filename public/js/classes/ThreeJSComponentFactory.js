@@ -1,20 +1,21 @@
 import * as THREE from 'three';
 export class ThreeJSComponentFactory {
     constructor() {
-        this.setVNNState = (pos, type, neurons) => {
+        this.setVNNState = (pos, type, neuron, skipCreateVisualLayer) => {
             if (type === 'input') {
                 this._VNNCountState[0] = [];
-                this._VNNCountState[0].push(neurons);
+                this._VNNCountState[0].push(neuron);
             }
             else if (type === 'hidden') {
                 this._VNNCountState[1][pos] = [];
-                this._VNNCountState[1][pos].push(neurons);
+                this._VNNCountState[1][pos].push(neuron);
             }
             else if (type === 'output') {
                 this._VNNCountState[2] = [];
-                this._VNNCountState[2].push(neurons);
+                this._VNNCountState[2].push(neuron);
             }
-            this.createVisualLayer(0.5);
+            if (!skipCreateVisualLayer)
+                this.createVisualLayer(0.5);
         };
         this.createVisualLayer = (circleDistance) => {
             this._scene.clear();
@@ -54,37 +55,42 @@ export class ThreeJSComponentFactory {
             this.render();
         };
         this.setConnection = () => {
-            if (!this._toggleConnection)
-                return;
-            const allInputHiddenElements = document.querySelectorAll(".inputHidden");
-            if (allInputHiddenElements.length == 0)
-                return;
-            const hiddenInputs = Array.from(allInputHiddenElements).filter((element) => element instanceof HTMLInputElement);
-            // connection between input and hidden layer
-            const inputLength = this._VNNState[0].length;
-            for (let i = 0; i < inputLength; i++) {
-                for (let j = 0; j < parseInt(hiddenInputs[0].value); j++) {
-                    for (let k = 0; k < this._VNNState[1][0].length; k++) {
-                        this.drawLine(this._VNNState[0][i], this._VNNState[1][0][k], 0x787c7c);
+            try {
+                if (!this._toggleConnection)
+                    return;
+                const allInputHiddenElements = document.querySelectorAll(".inputHidden");
+                if (allInputHiddenElements.length == 0)
+                    return;
+                const hiddenInputs = Array.from(allInputHiddenElements).filter((element) => element instanceof HTMLInputElement);
+                // connection between input and hidden layer
+                const inputLength = this._VNNState[0].length;
+                for (let i = 0; i < inputLength; i++) {
+                    for (let j = 0; j < parseInt(hiddenInputs[0].value); j++) {
+                        for (let k = 0; k < this._VNNState[1][0].length; k++) {
+                            this.drawLine(this._VNNState[0][i], this._VNNState[1][0][k], 0x787c7c);
+                        }
+                    }
+                }
+                // connection between hidden and hidden layer
+                for (let i = 0; i < hiddenInputs.length - 1; i++) {
+                    const leftLayer = parseInt(hiddenInputs[i].value);
+                    const rightLayer = parseInt(hiddenInputs[i + 1].value);
+                    for (let j = 0; j < leftLayer; j++) {
+                        for (let k = 0; k < rightLayer; k++) {
+                            this.drawLine(this._VNNState[1][i][j], this._VNNState[1][i + 1][k], 0x787c7c);
+                        }
+                    }
+                }
+                // connection between output layer and last hidden layer
+                const outputLength = this._VNNState[2].length;
+                for (let i = 0; i < outputLength; i++) {
+                    for (let j = 0; j < parseInt(hiddenInputs[hiddenInputs.length - 1].value); j++) {
+                        this.drawLine(this._VNNState[2][i], this._VNNState[1][hiddenInputs.length - 1][j], 0x787c7c);
                     }
                 }
             }
-            // connection between hidden and hidden layer
-            for (let i = 0; i < hiddenInputs.length - 1; i++) {
-                const leftLayer = parseInt(hiddenInputs[i].value);
-                const rightLayer = parseInt(hiddenInputs[i + 1].value);
-                for (let j = 0; j < leftLayer; j++) {
-                    for (let k = 0; k < rightLayer; k++) {
-                        this.drawLine(this._VNNState[1][i][j], this._VNNState[1][i + 1][k], 0x787c7c);
-                    }
-                }
-            }
-            // connection between output layer and last hidden layer
-            const outputLength = this._VNNState[2].length;
-            for (let i = 0; i < outputLength; i++) {
-                for (let j = 0; j < parseInt(hiddenInputs[hiddenInputs.length - 1].value); j++) {
-                    this.drawLine(this._VNNState[2][i], this._VNNState[1][hiddenInputs.length - 1][j], 0x787c7c);
-                }
+            catch (error) {
+                console.log(error);
             }
             this.render();
         };
@@ -122,12 +128,15 @@ export class ThreeJSComponentFactory {
         this._camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         this._renderer = new THREE.WebGLRenderer();
         this._camera.position.z = 10;
-        this._VNNCountState = [[1], [[1]], [1]];
+        this._VNNCountState = [[1], [[]], [1]];
         this._VNNState = [[], [[]], []];
         this._allConnection = [];
         this._renderer.setSize(window.innerWidth, window.innerHeight);
         this._toggleConnection = true;
         document.body.appendChild(this._renderer.domElement);
+    }
+    get VNNCountState() {
+        return this._VNNCountState;
     }
     set toggleConnection(toggleConnection) {
         this._toggleConnection = toggleConnection;
