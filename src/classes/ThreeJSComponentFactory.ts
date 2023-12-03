@@ -7,6 +7,8 @@ export class ThreeJSComponentFactory {
    private _renderer: THREE.WebGLRenderer;
    private _VNNCountState: [number[], number[][], number[]];
    private _VNNState: [THREE.Mesh[], THREE.Mesh[][], THREE.Mesh[]];
+   private _toggleConnection: Boolean;
+   private _allConnection: THREE.Line[];
 
    constructor() {
       this._scene = new THREE.Scene();
@@ -15,8 +17,19 @@ export class ThreeJSComponentFactory {
       this._camera.position.z = 10;
       this._VNNCountState = [[1], [[1]], [1]];
       this._VNNState = [[], [[]], []];
+      this._allConnection = [];
       this._renderer.setSize(window.innerWidth, window.innerHeight);
+      this._toggleConnection = true;
       document.body.appendChild(this._renderer.domElement);
+   }
+
+   public set toggleConnection(toggleConnection: boolean) {
+      this._toggleConnection = toggleConnection;
+      if (toggleConnection) {
+         this.setConnection();
+      } else {
+         this.removeConnection();
+      }
    }
 
    setVNNState = (pos: number, type: string, neurons: number): void => {
@@ -77,41 +90,63 @@ export class ThreeJSComponentFactory {
    }
 
    setConnection = (): void => {
+      if (!this._toggleConnection) return;
       const allInputHiddenElements = document.querySelectorAll(".inputHidden");
       if (allInputHiddenElements.length == 0) return;
       const hiddenInputs = Array.from(allInputHiddenElements).filter((element): element is HTMLInputElement => element instanceof HTMLInputElement);
 
-      let count = 0;
-      const inputLength = this._VNNState[0].length;
       // connection between input and hidden layer
+      const inputLength = this._VNNState[0].length;
       for (let i = 0; i < inputLength; i++) {
          for (let j = 0; j < parseInt(hiddenInputs[0].value); j++) {
-            for (let k = 0; k < this._VNNState[1][count].length; k++) {
-               this.drawLine(this._VNNState[0][i], this._VNNState[1][count][k])
+            for (let k = 0; k < this._VNNState[1][0].length; k++) {
+               this.drawLine(this._VNNState[0][i], this._VNNState[1][0][k], 0x787c7c)
             }
          }
       }
       // connection between hidden and hidden layer
-      // connection between hidden and output layer
+      for (let i = 0; i < hiddenInputs.length - 1; i++) {
+         const leftLayer = parseInt(hiddenInputs[i].value);
+         const rightLayer = parseInt(hiddenInputs[i + 1].value);
+
+         for (let j = 0; j < leftLayer; j++) {
+            for (let k = 0; k < rightLayer; k++) {
+               this.drawLine(this._VNNState[1][i][j], this._VNNState[1][i + 1][k], 0x787c7c);
+            }
+         }
+      }
+
+      // connection between output layer and last hidden layer
+      const outputLength = this._VNNState[2].length;
+      for (let i = 0; i < outputLength; i++) {
+         for (let j = 0; j < parseInt(hiddenInputs[hiddenInputs.length - 1].value); j++) {
+            this.drawLine(this._VNNState[2][i], this._VNNState[1][hiddenInputs.length - 1][j], 0x787c7c)
+         }
+      }
+      this.render();
    }
 
-   drawLine(startNode, endNode, color = 0x787c7c) {
-      // Erstellen einer Vektorreihe, die die Positionen der Knoten enthält
+   drawLine(startNode: THREE.Mesh, endNode: THREE.Mesh, color: number) {
       const points = [];
       points.push(startNode.position.clone());
       points.push(endNode.position.clone());
 
-      // Erstellen einer Liniengeometrie aus den Punkten
       const geometry = new THREE.BufferGeometry().setFromPoints(points);
       const material = new THREE.LineBasicMaterial({ color: color });
 
-      // Erstellen einer Linie mit der definierten Geometrie und dem Material
       const line = new THREE.Line(geometry, material);
-      // line.isLine = true;
       line.renderOrder = -1;
-
+      this._allConnection.push(line);
       this._scene.add(line);
       return line;
+   }
+
+   removeConnection = (): void => {
+      this._allConnection.forEach(connection => {
+         this._scene.remove(connection);
+      });
+      this._allConnection = [];
+      this.render();
    }
 
    getHiddenLayerCount = (): number => {

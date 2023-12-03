@@ -7,6 +7,7 @@ export class InputHandler {
    private _outputScale: HTMLInputElement;
    private _hiddenLayerWrapper: HTMLDivElement;
    private _threeJSScene: ThreeJSComponentFactory;
+   private _connectionCheckbox: HTMLInputElement;
 
    constructor() {
       this._inputScale = document.querySelector('#inputInput') as HTMLInputElement;
@@ -14,9 +15,10 @@ export class InputHandler {
       this._outputScale = document.querySelector('#inputOutput') as HTMLInputElement;
       this._hiddenLayerWrapper = document.querySelector('#hiddenLayerWrapper') as HTMLDivElement;
       this._hiddenLayerCount.addEventListener('input', this.addHiddenLayers);
-      // this._hiddenLayerWrapper.addEventListener('input', this.handleInputEvent);
+      this._connectionCheckbox = document.querySelector('#connBox') as HTMLInputElement;
       this._inputScale.addEventListener('input', this.addVirtualInputLayer);
       this._outputScale.addEventListener('input', this.addVirtualOutputLayer);
+      this._connectionCheckbox.addEventListener('change', this.toggleConnections);
       this._threeJSScene = new ThreeJSComponentFactory();
    }
 
@@ -62,12 +64,7 @@ export class InputHandler {
       this._hiddenLayerWrapper.appendChild(fragment);
    }
 
-   // handleInputEvent = (event: Event): void => {
-   //    console.log("hiddenLayerWrapper");
-   //    const target = event.target as HTMLInputElement;
-   //    if (target && target.classList.contains('inputHidden')) {
-   //       // const threeJSScene: ThreeJSComponentFactory = new ThreeJSComponentFactory();
-   //       //TODO: generateVisualNN(inputInput.value, getAllHiddenLayer(), outputInput.value);
-   //    }
-   // }
+   toggleConnections = (): void => {
+      this._threeJSScene.toggleConnection = this._connectionCheckbox.checked ? true : false;
+   }
 }

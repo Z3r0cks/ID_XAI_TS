@@ -38,14 +38,18 @@ export class InputHandler {
             this._threeJSScene.deleteNotUsedLayers(parseInt(this._hiddenLayerCount.value));
             this._hiddenLayerWrapper.appendChild(fragment);
         };
+        this.toggleConnections = () => {
+            this._threeJSScene.toggleConnection = this._connectionCheckbox.checked ? true : false;
+        };
         this._inputScale = document.querySelector('#inputInput');
         this._hiddenLayerCount = document.querySelector('#hiddenLayerCount');
         this._outputScale = document.querySelector('#inputOutput');
         this._hiddenLayerWrapper = document.querySelector('#hiddenLayerWrapper');
         this._hiddenLayerCount.addEventListener('input', this.addHiddenLayers);
-        // this._hiddenLayerWrapper.addEventListener('input', this.handleInputEvent);
+        this._connectionCheckbox = document.querySelector('#connBox');
         this._inputScale.addEventListener('input', this.addVirtualInputLayer);
         this._outputScale.addEventListener('input', this.addVirtualOutputLayer);
+        this._connectionCheckbox.addEventListener('change', this.toggleConnections);
         this._threeJSScene = new ThreeJSComponentFactory();
     }
 }
