@@ -67,7 +67,7 @@ export class ThreeJSComponentFactory {
                 for (let i = 0; i < inputLength; i++) {
                     for (let j = 0; j < parseInt(hiddenInputs[0].value); j++) {
                         for (let k = 0; k < this._VNNState[1][0].length; k++) {
-                            this.drawLine(this._VNNState[0][i], this._VNNState[1][0][k], 0x787c7c);
+                            this.drawLine(this._VNNState[0][i], this._VNNState[1][0][k], 0xffffff);
                         }
                     }
                 }
@@ -77,7 +77,7 @@ export class ThreeJSComponentFactory {
                     const rightLayer = parseInt(hiddenInputs[i + 1].value);
                     for (let j = 0; j < leftLayer; j++) {
                         for (let k = 0; k < rightLayer; k++) {
-                            this.drawLine(this._VNNState[1][i][j], this._VNNState[1][i + 1][k], 0x787c7c);
+                            this.drawLine(this._VNNState[1][i][j], this._VNNState[1][i + 1][k], 0xffffff);
                         }
                     }
                 }
@@ -85,7 +85,7 @@ export class ThreeJSComponentFactory {
                 const outputLength = this._VNNState[2].length;
                 for (let i = 0; i < outputLength; i++) {
                     for (let j = 0; j < parseInt(hiddenInputs[hiddenInputs.length - 1].value); j++) {
-                        this.drawLine(this._VNNState[2][i], this._VNNState[1][hiddenInputs.length - 1][j], 0x787c7c);
+                        this.drawLine(this._VNNState[2][i], this._VNNState[1][hiddenInputs.length - 1][j], 0xffffff);
                     }
                 }
             }
@@ -127,6 +127,7 @@ export class ThreeJSComponentFactory {
         this._scene = new THREE.Scene();
         this._camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         this._renderer = new THREE.WebGLRenderer();
+        this._renderer.setClearColor(0x343541, 1);
         this._camera.position.z = 10;
         this._VNNCountState = [[1], [[]], [1]];
         this._VNNState = [[], [[]], []];

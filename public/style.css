@@ -1,5 +1,5 @@
 html {
-   background-color: #2e2e2e;
+   background-color: #343541;
 }
 
 body {
@@ -7,9 +7,32 @@ body {
    padding: 0;
 }
 
+input[type="range"] {
+   -webkit-appearance: none;
+   appearance: none;
+   background: #77a1be;
+   border-radius: 25px;
+   cursor: pointer;
+   width: 10rem;
+   height: 1px;
+   margin: 15px 0;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+   -webkit-appearance: none; /* Override default look */
+   appearance: none;
+   margin-top: -12px; /* Centers thumb on the track */
+
+   /*custom styles*/
+   background-color: #5cd5eb;
+   height: 1rem;
+   width: 1rem;
+   border-radius: 25px;
+}
+
 .cam,
 .input {
-   color: #787c7c;
+   color: #cdcece;
    position: absolute;
    z-index: 2;
 }
