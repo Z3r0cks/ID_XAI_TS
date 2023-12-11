@@ -56,3 +56,11 @@
 ### P + L
 - Added KanBan to Github Repo
 
+### L
+- create scrollinteration on seperate project
+- create Presentation for interim presentation
+
+## KW 49 (04.12 - 10.12)
+
+## KW 50 (11.12 - 17.12)
+
