@@ -2,13 +2,17 @@ import { ThreeJSComponentFactory } from "./ThreeJSComponentFactory";
 import { NeuralNetwork } from "./NeuralNetwork";
 export class InputHandler {
     constructor() {
+        //for Prototype and the data use 3 Input Neurons
         this.addVirtualInputLayer = () => {
-            const input = parseInt(this._inputScale.value);
+            //const input = parseInt(this._inputScale.value);
+            const input = 3;
             this._threeJSScene.setVNNState(0, "input", input);
             this._threeJSScene.render();
         };
+        //for Prototype and the data use 2 Output Neurons
         this.addVirtualOutputLayer = () => {
-            const output = parseInt(this._outputScale.value);
+            //const output = parseInt(this._outputScale.value);
+            const output = 2;
             const hiddenLayerCount = parseInt(this._hiddenLayerCount.value);
             this._threeJSScene.setVNNState(hiddenLayerCount, "output", output);
             this._threeJSScene.render();
@@ -49,15 +53,15 @@ export class InputHandler {
         this.createModelHTML = () => {
             console.log(this._model);
         };
-        this._inputScale = document.querySelector('#inputInput');
+        //this._inputScale = document.querySelector('#inputInput') as HTMLInputElement;
         this._hiddenLayerCount = document.querySelector('#hiddenLayerCount');
-        this._outputScale = document.querySelector('#inputOutput');
+        //this._outputScale = document.querySelector('#inputOutput') as HTMLInputElement;
         this._hiddenLayerWrapper = document.querySelector('#hiddenLayerWrapper');
         this._hiddenLayerCount.addEventListener('input', this.addHiddenLayers);
         this._connectionCheckbox = document.querySelector('#connBox');
         this._setModel = document.querySelector('#setModel');
-        this._inputScale.addEventListener('input', this.addVirtualInputLayer);
-        this._outputScale.addEventListener('input', this.addVirtualOutputLayer);
+        //this._inputScale.addEventListener('input', this.addVirtualInputLayer);
+        //this._outputScale.addEventListener('input', this.addVirtualOutputLayer);
         this._connectionCheckbox.addEventListener('change', this.toggleConnections);
         this._setModel.addEventListener('click', this.createModel);
         this._threeJSScene = new ThreeJSComponentFactory();

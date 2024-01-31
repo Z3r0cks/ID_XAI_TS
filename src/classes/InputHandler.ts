@@ -2,9 +2,9 @@ import { ThreeJSComponentFactory } from "./ThreeJSComponentFactory";
 import { NeuralNetwork } from "./NeuralNetwork";
 
 export class InputHandler {
-   private _inputScale: HTMLInputElement;
+   //private _inputScale: HTMLInputElement;
    private _hiddenLayerCount: HTMLInputElement;
-   private _outputScale: HTMLInputElement;
+   //private _outputScale: HTMLInputElement;
    private _hiddenLayerWrapper: HTMLDivElement;
    private _threeJSScene: ThreeJSComponentFactory;
    private _connectionCheckbox: HTMLInputElement;
@@ -12,29 +12,33 @@ export class InputHandler {
    private _model: NeuralNetwork;
 
    constructor() {
-      this._inputScale = document.querySelector('#inputInput') as HTMLInputElement;
+      //this._inputScale = document.querySelector('#inputInput') as HTMLInputElement;
       this._hiddenLayerCount = document.querySelector('#hiddenLayerCount') as HTMLInputElement;
-      this._outputScale = document.querySelector('#inputOutput') as HTMLInputElement;
+      //this._outputScale = document.querySelector('#inputOutput') as HTMLInputElement;
       this._hiddenLayerWrapper = document.querySelector('#hiddenLayerWrapper') as HTMLDivElement;
       this._hiddenLayerCount.addEventListener('input', this.addHiddenLayers);
       this._connectionCheckbox = document.querySelector('#connBox') as HTMLInputElement;
       this._setModel = document.querySelector('#setModel') as HTMLButtonElement;
-      this._inputScale.addEventListener('input', this.addVirtualInputLayer);
-      this._outputScale.addEventListener('input', this.addVirtualOutputLayer);
+      //this._inputScale.addEventListener('input', this.addVirtualInputLayer);
+      //this._outputScale.addEventListener('input', this.addVirtualOutputLayer);
       this._connectionCheckbox.addEventListener('change', this.toggleConnections);
       this._setModel.addEventListener('click', this.createModel);
       this._threeJSScene = new ThreeJSComponentFactory();
    }
 
+   //for Prototype and the data use 3 Input Neurons
    addVirtualInputLayer = (): void => {
-      const input = parseInt(this._inputScale.value);
+      //const input = parseInt(this._inputScale.value);
+      const input = 3;
       this._threeJSScene.setVNNState(0, "input", input)
       this._threeJSScene.render();
 
    }
 
+   //for Prototype and the data use 2 Output Neurons
    addVirtualOutputLayer = (): void => {
-      const output = parseInt(this._outputScale.value);
+      //const output = parseInt(this._outputScale.value);
+      const output = 2;
       const hiddenLayerCount = parseInt(this._hiddenLayerCount.value);
       this._threeJSScene.setVNNState(hiddenLayerCount, "output", output)
       this._threeJSScene.render();
